@@ -1,6 +1,6 @@
 # Student information system - [*Enrollments module*]
 
-[*Module description*]
+> The module Enrollments enables to manage enrollments of students in courses in semesters and enrollments in specific schedule tickets in a given semester according to the planned schedule. Enrollment in a ticket with a filled capacity is possible but only in the waiting list of the subject. A student cannot enroll in a course that has a prerequisite course that he / she has not yet completed successfully. Furthermore, he / she cannot enroll in a course that he / she has already completed, unless the course is explicitly specified with to repeated enrollments allowed. Course guarantors and teachers assigned to individual timetables can see the list of students enrolled in the course and individual timetables and can send them email messages. Furthermore, they can reallocate students between schedule sheets defined in the schedule for the given semester. The module enables to create statistical reports on the number of students enrolled in subjects and timetables in individual semesters and on the teaching shares of teachers.
 
 ## Functional Requirements
 
@@ -8,7 +8,12 @@ This section specifies the functional requirements.
 
 ### User requirements
 
-[*List of user requirements*]
+- Student shall be able to enroll in a course and into a schedule ticket.
+- Student shall be able to delist from the schedule ticket he is enrolled in.
+- Student should have the possibility to change a schedule ticket.
+- Teacher shall be able to list all students enrolled in a given schedule ticket.
+- Teacher can send a message / e-mail to all students enrolled in the course / schedule ticket led by the teacher.
+- System creates statistical report on the number of students enrolled as well as teaching shares of teachers.
 
 ### System requirements
 
@@ -18,38 +23,64 @@ This section specifies the functional requirements.
 
 [*Document here all actors from the use case diagrams. Make a subsection for each actor and their short description in each subsection.*]
 
-##### [*Actor name*]
+##### Student
 
-[*Actor description*]
+Student actor represents a university student who will use the student information system as a main method of interaction between him and the university. 
+
+##### Teacher / Course garantor
+
+Teacher / Course garantor actor is a representation of an academic employee who is responsible for holding the lectures and/or practical tutorials.
+
+##### Student Affairs Department
+
+Student Affairs Departement actor represents a university / faculty department responsible for dealing with administration and control related tasks as well as helping students dealing with various types
+of problems they may encounter during their studies.
 
 #### Use cases
 
-[*Document here all use cases. Create a subsection for each use case diagram. If you have only one use case diagram, you do not need a special subsection*]
-
-##### [*Use case diagram title*]
+##### [*Enrollments module use case diagram*]
 
 [*Use case diagram in PlantUML*]
 
 ```plantuml
 @startuml
-left to right direction
-actor Guest as g
-package Professional {
-  actor Chef as c
-  actor "Food Critic" as fc
+
+skinparam actorStyle awesome
+actor Student as s
+actor Teacher as t
+actor "Student Affairs Department" as sd
+package "Enrollments module" {
+  usecase "Create statistical report" as statReport
+  usecase "Enroll in a schedule ticket" as enroll
+  usecase "List students enrollments" as listEnrollments
+  usecase "List course schedule tickets" as listTickets
+  usecase "List students enrolled to course" as listCourseEnrolled
+  usecase "Reallocate student's schedule ticket" as reallocateTicket
+  usecase "List students enrolled to schedule ticket" as listTicketEnrolled
+  usecase "Contact students" as contact
+  usecase "Validate enrollment" as validate
 }
-package Restaurant {
-  usecase "Eat Food" as UC1
-  usecase "Pay for Food" as UC2
-  usecase "Drink" as UC3
-  usecase "Review" as UC4
-  usecase "Cook Food" as UC5
-}
-c --> UC5
-fc --> UC4
-g --> UC1
-g --> UC2
-g --> UC3
+
+validate .|> enroll: << extend >>
+enroll ..|> listTickets: <<include>>
+reallocateTicket ..|> enroll: <<include>>
+listCourseEnrolled  ..|> listTickets: <<include>>
+contact ..|> listTicketEnrolled: <<include>>
+listCourseEnrolled .|> listTicketEnrolled: <<include>>
+
+sd .down.|> t: <<include>>
+
+s -> enroll
+s -> listEnrollments
+s -> listTickets
+
+
+t -> reallocateTicket
+t -> contact
+t -> listCourseEnrolled
+t -> listTicketEnrolled
+t -> listTickets
+
 @enduml
 ```
 
@@ -58,3 +89,9 @@ g --> UC3
 ###### [*Use case title*]
 
 [*Use case description in the structure from the lecture.*]
+
+###### Enroll in a schedule ticket
+
+###### Validate enrollment
+
+###### List course schedule tickets
