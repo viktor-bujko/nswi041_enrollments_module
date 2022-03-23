@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Student information system - &lsqb;&midast;Enrollments module&midast;&rsqb;</title>
+        <title>Modul z&aacute;pisy</title>
         <style>
 /* From extension vscode.github */
 .vscode-dark img[src$=\#gh-light-mode-only],
@@ -41,26 +41,183 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="student-information-system---enrollments-module">Student information system - [<em>Enrollments module</em>]</h1>
-<p>[<em>Module description</em>]</p>
-<h2 id="functional-requirements">Functional Requirements</h2>
-<p>This section specifies the functional requirements.</p>
-<h3 id="user-requirements">User requirements</h3>
-<p>[<em>List of user requirements</em>]</p>
-<h3 id="system-requirements">System requirements</h3>
-<p>[<em>Document here your system requirements as use case diagrams.</em>]</p>
-<h4 id="actors">Actors</h4>
-<p>[<em>Document here all actors from the use case diagrams. Make a subsection for each actor and their short description in each subsection.</em>]</p>
-<h5 id="actor-name">[<em>Actor name</em>]</h5>
-<p>[<em>Actor description</em>]</p>
-<h4 id="use-cases">Use cases</h4>
-<p>[<em>Document here all use cases. Create a subsection for each use case diagram. If you have only one use case diagram, you do not need a special subsection</em>]</p>
-<h5 id="use-case-diagram-title">[<em>Use case diagram title</em>]</h5>
-<p>[<em>Use case diagram in PlantUML</em>]</p>
-<img src="https://www.plantuml.com/plantuml/svg/JP3D2eCm40RlUOh5kmUjlHR1qbv5w0CiSQD1QqgoQIcbxrx_6dBAaFaOGah7QDdVHr466aani06hkvwXrPOaQpC9b6miN3qv1dJGYGVA0Jk2sXf5piqR7E4Z0BPbrPDQXZBS91TZMgYiPYsJHIaflY7Jp67q5YTU8zwHH4UGk7LwgxBuiiOtg3cv57UVn_vizJJiuX2BXfwQNhifObCPCyIzu_ms2MbwMbdziH3TJbcWFD11b3IrwuTkvmy0" alt="uml diagram">
-<p>[<em>Describe the diagram in a short paragraph. Describe each use case from the diaram in the detail from the lecture in a separate subsection.</em>]</p>
-<h6 id="use-case-title">[<em>Use case title</em>]</h6>
-<p>[<em>Use case description in the structure from the lecture.</em>]</p>
+        <h1 id="modul-zápisy">Modul zápisy</h1>
+<h2 id="zadanie">Zadanie</h2>
+<blockquote>
+<p>Modul zápisy slouží k zapisování studentů do předmětů v semestrech a k zápisu na konkrétní rozvrhové lístky předmětu v rozvrhu na daný semestr. Zápis do lístku s naplněnou kapacitou je možný do čekací listiny předmětu. Student se nemůže zapsat na předmět, který má jako prerekvizitu předmět, který ještě úspěšně neabsolvoval. Dále se nemůže zapsat na předmět, který již absolvoval, pokud nemá předmět explicitně povoleny opakované zápisy. Garanti předmětu a vyučující přiřazení k jednotlivým rozvrhovým lístkům mohou vidět seznam studentů zapsaných do předmětu i na jednotlivé rozvrhové lístky a mohou jim rozesílat zprávy. Dále mohou studenty přesouvat mezi rozvrhovými lístky. Modul umožňuje vytvářet statistické reporty o počtech studentů zapsaných do předmětů a do rozvrhových lístků v jednotlivých semestrech a o podílech učitelů na výuce.</p>
+</blockquote>
+<hr>
+<h2 id="use-cases">Use cases:</h2>
+<ol>
+<li>
+<p><strong>Enroll to Ticket</strong></p>
+<ul>
+<li><strong>Description:</strong> Student enrolls in the given ticket.</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Student</li>
+<li>Teacher</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>Enrollment must be allowed (semester period, repeatable courses...)</li>
+<li>Prerequisite subjects must be passed</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>List student enrollments</strong></p>
+<ul>
+<li><strong>Description:</strong> Returns list of tickets, the student is enrolled in.</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Student</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>???</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>List subject tickets</strong></p>
+<ul>
+<li><strong>Description:</strong> Returns list of tickets for a given subject</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Student</li>
+<li>Teacher</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>Subject must have some tickets associated</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>List students in ticket</strong></p>
+<ul>
+<li><strong>Description:</strong> Returns list of all students enrolled in given ticket</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Student</li>
+<li>Teacher</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>Teacher is teaching the given subject</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>List students in subject</strong></p>
+<ul>
+<li><strong>Description:</strong> Returns list of all students enrolled in given subject</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Student</li>
+<li>Teacher</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>Teacher is teaching the given subject</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Move student to ticket</strong></p>
+<ul>
+<li><strong>Description:</strong> Enrolls student in another ticket.</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Teacher</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>Student must be enrolled in another ticket of the same subject</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Send mail to students</strong></p>
+<ul>
+<li><strong>Description:</strong> Sends an email to students of given subject/ticket.</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Teacher</li>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions</strong>:
+<ul>
+<li>Teacher must teach the subject/ticket</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Create report</strong></p>
+<ul>
+<li><strong>Description:</strong> Returns data with statistics report.</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>Study Department</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>???</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Validate enrollment</strong></p>
+<ul>
+<li><strong>Description:</strong> Validates whether the enrollment the actor tries to commit is valid.</li>
+<li><strong>Actors:</strong>
+<ul>
+<li>System (Automatic)</li>
+</ul>
+</li>
+<li><strong>Conditions:</strong>
+<ul>
+<li>Any actor is trying to enroll/move a student across tickets.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<img src="https://www.plantuml.com/plantuml/svg/VLHBJiCm4Dtx5ADkkceEW12g1DtH3QdOcsJQcZfsPK-0Yd9t_8aJ9wIiOhtFF8yzpjeIDzGsagtxrLBYde0q674u4jJ2O4L2AsPFGfsvuGtmYhGfwI8H-2TQtI0B42nAQcjKj01kmSPredR8goEQG55SvwuBFA6hJarklpYCiJElJlo0iDWeewKNGAFhLcBGzU0sOF3D05gB5RV98K4e856Ta0Q7p6NFmbBQBs2WVKKRv9xS3DXVN_lsxeweInWyPSHt4RuLPoURyroqT6VvlxCBduREURVw0_ictVrcePxgBBcZH5L3muNqyfGQ39xPEc8Ky6YG4uB1ipQnRaHU0f0hNxaKjTSEPntq2MS_R0cRBtAucpmBUk-zAs-shBlJ-sjHz0Qu0_JokgUBulemSmrEA5GbNIkMPLr7UMVD93D7EbGUNzCDMyeDsvqhbzdOdwx30x4ilOMOdUumSuu5tVCQbqwkrIerEeAcKpxb9jFCKeRdy_79yRc1pFbXYgQkoGkuKRJVJD--5uo6ZgrTHlZ1nUyl" alt="uml diagram">
+<h1 id="todo">TODO:</h1>
+<ul>
+<li>github issue tracking (popis s template)</li>
+</ul>
+<h3 id="adresár-na-analýzu-požiadavok">adresár na analýzu požiadavok</h3>
+<ul>
+<li>dokumentácia výsledku analýzy ako MD dokument</li>
+<li>user / system requirements ako sekcie dokumentu</li>
+<li>usecase diagramy ako kapitoly</li>
+<li>cross-referencie z kódu a ostatných častí dokumentu</li>
+</ul>
 
     </body>
     </html>
