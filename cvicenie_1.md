@@ -105,17 +105,16 @@ package "Enrolment module" as EnrolmentModule {
   usecase "Validate enrollment" as Validate
 }
 ' Extentions of use-cases
-Enroll <|.. Validate : extends
+Enroll <|. Validate : extends
 Enroll ..|> ListSubjectTickets : includes
 MoveStudent ..|> Enroll : includes
-ListSubjectStudents ..|> ListTicketStudents : includes
+ListSubjectStudents ...|> ListTicketStudents : includes
 ListSubjectTickets <|.. ListSubjectStudents : includes
+SendMails ..|> ListTicketStudents : includes
 
 
 ' Extentions of actors
-studyDep ..|> student : includes
-studyDep ..|> teacher : includes
-
+studyDep .|> teacher : includes
 
 student --> Enroll
 student --> ListEnrollments
@@ -127,8 +126,8 @@ teacher --> SendMails
 teacher --> ListTicketStudents
 teacher --> ListSubjectTickets
 
-studyDep --> CreateReport
-
+studyDep -> CreateReport
+studyDep -> ListEnrollments
 @enduml
 ```
 
