@@ -38,17 +38,18 @@ of problems they may encounter during their studies.
 
 #### Use cases
 
-##### [*Enrollments module use case diagram*]
-
-[*Use case diagram in PlantUML*]
+##### Enrollments module use case diagram
 
 ```plantuml
 @startuml
 
 skinparam actorStyle awesome
+skinparam monochrome true
+
 actor Student as s
 actor Teacher as t
 actor "Student Affairs Department" as sd
+
 package "Enrollments module" {
   usecase "Create statistical report" as statReport
   usecase "Enroll in a schedule ticket" as enroll
@@ -68,27 +69,23 @@ listCourseEnrolled  ..|> listTickets: <<include>>
 contact ..|> listTicketEnrolled: <<include>>
 listCourseEnrolled .|> listTicketEnrolled: <<include>>
 
-sd .down.|> t: <<include>>
+sd .|> t: <<include>>
 
-s -> enroll
-s -> listEnrollments
-s -> listTickets
+s --> enroll
+s --> listEnrollments
+s --> listTickets
 
 
-t -> reallocateTicket
-t -> contact
-t -> listCourseEnrolled
-t -> listTicketEnrolled
-t -> listTickets
+t --> reallocateTicket
+t --> contact
+t --> listCourseEnrolled
+t --> listTicketEnrolled
+t --> listTickets
 
 @enduml
 ```
 
 [*Describe the diagram in a short paragraph. Describe each use case from the diaram in the detail from the lecture in a separate subsection.*]
-
-###### [*Use case title*]
-
-[*Use case description in the structure from the lecture.*]
 
 ###### Enroll in a schedule ticket
 
