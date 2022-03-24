@@ -249,11 +249,23 @@ sd --> statReport
 
 #### _Starting situation (Initial assumption)_
 
+- User is logged to the system and opens the enrolments screen.
+
 #### _Normal_
+
+- User requests the list of student's enrolments
+- System finds all enrolments with the qiven student
 
 #### _What can go wrong_
 
+- User may not have sufficient permissions to see the list
+- Student whose list is requested may not exists
+- List of student's enrollments may be empty
+
 #### _System state on completion_
+
+- System gather all student's enrollments and display the to the user
+- In case that the user has not sufficient permissions, request data for invalid student or the list is empty, the system reports error to the user
 
 
 
@@ -261,20 +273,50 @@ sd --> statReport
 
 #### _Starting situation (Initial assumption)_
 
+- User has opened a screen with information about student's enrollment to certain schedule ticket
+- User stated the intention to reallocete the ticket
+
 #### _Normal_
+
+- User requests reallocation of the student to the selected schedule ticket
+- System finds the original enrollment
+- System removes student's original enrollment
+- System verifies the possibility to enroll the student to the selected schedule ticket
+- System enrolls the student to the selected schedule ticket
 
 #### _What can go wrong_
 
+- User may not have sufficient permissions to initiate the operation
+- The selected ticket may be the same as the original ticket
+- Student's enrollment that the user want to reallocate may be already invalid
+- It may not be allowed to enroll the student to the selected ticket
+
 #### _System state on completion_
 
-
+- Student's enrollment is reallocated to the different ticket and the user is informed that the operation ended successfully
+- In case that the user has not sufficient permissions or the selected ticket is the same as the original ticket, no changes are made and the system reports the error to the user
+- In case that student's enrollment that should be modified doesn't exists anymore or the enrollment to the new ticket is not possible, the original state is persisted and the system reports the error to the user
 
 ### Create statistical report
 
 #### _Starting situation (Initial assumption)_
 
+- Member of Student Affairs Department is logged to enrollments module and want to export specific report
+
 #### _Normal_
+
+- User fills and sends the request to generate the statistical report
+- System fetches the required data
+- System calculates the requested values
+- System generates the report in the requested format
 
 #### _What can go wrong_
 
+- User sends request which is not filled correctly
+- Requested report is not available for the given period
+
 #### _System state on completion_
+
+- System provides the generated report to the user
+- In case of incorrectly filled request or when the report is not available for the given period, the system does not generate the report and inform the user about the error
+
