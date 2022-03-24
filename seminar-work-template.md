@@ -89,7 +89,7 @@ Usecase diagram describes the actors and the usecases which are relevant for the
 
 [*Describe the diagram in a short paragraph. Describe each use case from the diagram in the detail from the lecture in a separate subsection.*]
 
-###### Enroll in a schedule ticket
+##### Enroll in a schedule ticket
 
 _Starting situation (Initial assumption)_
 
@@ -98,8 +98,12 @@ _Starting situation (Initial assumption)_
 _Normal_
 
 - A user opens the enrollments form.
+ 
+- The user fills information about the course for enrollment.
 
-- The user fills information about the course and schedule ticket for enrollment.
+- System fetches all available schedule tickets for given course and provides them to the user.
+
+- The user completes the enrollment request by making a choice about the desired schedule ticket and filling it in the request.
 
 - The user sends an enrollment request.
 
@@ -115,6 +119,8 @@ _Normal_
 
 _What can go wrong_
 
+- System does not find any available schedule tickets for given course.
+
 - The user sends enrollment request which is not filled correctly.
 
 - Enrollment validation process fails.
@@ -125,9 +131,9 @@ _System state on completion_
 
 - The enrollment request is valid and the process has finished successfully. The information about the enrollment of a student in a schedule ticket is now available in the system. Student is notified about the successful completion.
 
-- In case of enrollment validation failure or final system state validation failure, all changes in the system are rolled back &ndash; the state of the system returns to the last valid state. The student is notified about the failure. 
+- In case of enrollment validation failure or final system state validation failure, all changes in the system are rolled back &ndash; the state of the system returns to the last valid state. The student is notified about the failure.
 
-###### Validate enrollment
+##### Validate enrollment
 
 _Starting situation (Initial assumption)_
 
@@ -164,12 +170,30 @@ _System state on completion_
 
 - If any of the requirements for successful enrollment is not satisfied, enrollment validation fails. System is requested to stop the enrollment process and roll back all changes made to the system.
 
-###### List course schedule tickets
+##### List course schedule tickets
 
 _Starting situation (Initial assumption)_
 
+- A user has opened the enrollments form, has filled in information about the course for which the schedule tickets should be listed and has sent the request.
+
 _Normal_
+
+- The user sends the request for listing schedule tickets for given course.
+
+- System performs the search for available schedule tickets given provided information in the request.
+
+- System collects found schedule tickets and provides them to the user.
 
 _What can go wrong_
 
+- The user is not permitted to list the schedule tickets for given course.
+
+- System does not find any course which matches information and requirements from the request.
+
+- The system does not find any available schedule tickets for given course.
+
 _System state on completion_
+
+- The system fetches all available schedule tickets for the desired course. The user is now able to list the schedule tickets.
+
+- In case of incorrectly filled request or any other failure, the system does not fulfill the request to list schedule tickets and notifies the user about failed operation.
