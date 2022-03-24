@@ -51,7 +51,6 @@ skinparam monochrome true
 actor Student as s
 actor Teacher as t
 actor "Student Affairs Department" as sd
-
 package "Enrollments module" {
   usecase "Create statistical report" as statReport
   usecase "Enroll in a schedule ticket" as enroll
@@ -63,7 +62,6 @@ package "Enrollments module" {
   usecase "Contact students" as contact
   usecase "Validate enrollment" as validate
 }
-
 reallocateTicket ..|> enroll: <<include>>
 enroll ..|> listTickets: <<include>>
 listCourseEnrolled  .|> listTickets: <<include>>
@@ -85,7 +83,6 @@ t -> contact
 t -> listTicketEnrolled
 
 sd --> statReport
-
 @enduml
 ```
 
