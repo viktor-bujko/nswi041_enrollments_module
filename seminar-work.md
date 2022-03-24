@@ -1,6 +1,6 @@
-# Student information system - Modul zápisy
+# Student information system - Enrolments module
 
-## Zadanie
+## Description
 
 > Modul zápisy slouží k zapisování studentů do předmětů v semestrech a k zápisu na konkrétní rozvrhové lístky předmětu v rozvrhu na daný semestr. Zápis do lístku s naplněnou kapacitou je možný do čekací listiny předmětu. Student se nemůže zapsat na předmět, který má jako prerekvizitu předmět, který ještě úspěšně neabsolvoval. Dále se nemůže zapsat na předmět, který již absolvoval, pokud nemá předmět explicitně povoleny opakované zápisy. Garanti předmětu a vyučující přiřazení k jednotlivým rozvrhovým lístkům mohou vidět seznam studentů zapsaných do předmětu i na jednotlivé rozvrhové lístky a mohou jim rozesílat zprávy. Dále mohou studenty přesouvat mezi rozvrhovými lístky. Modul umožňuje vytvářet statistické reporty o počtech studentů zapsaných do předmětů a do rozvrhových lístků v jednotlivých semestrech a o podílech učitelů na výuce.
 
@@ -116,7 +116,7 @@ sd --> statReport
 
 - System is unable to find or update the structures holding information about the enrollment.
 
-_System state on completion_
+#### _System state on completion_
 
 - The enrollment request is valid and the process has finished successfully. The information about the enrollment of a student in a schedule ticket is now available in the system. Student is notified about the successful completion.
 
@@ -187,6 +187,76 @@ _Starting situation (Initial assumption)_
 
 - In case of incorrectly filled request or any other failure, the system does not fulfill the request to list schedule tickets and notifies the user about failed operation.
 
+### List students enrolled in course
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+### List students enrolled in schedule ticket
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+### Contact students
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+
+### List students enrollments
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+### Reallocate student's schedule ticket
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+### Create statistical report
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
 
 
 
@@ -208,8 +278,7 @@ _Starting situation (Initial assumption)_
 
 
 
-
-
+<!-- Following is just for reference. It is to be deleted eventualy -->
 1. __Enroll to Ticket__
    - __Description:__ Student enrolls in the given ticket.
    - __Actors:__
