@@ -8,7 +8,7 @@
 
 This section specifies the functional requirements.
 
-## User requirements
+### User requirements
 
 - Student shall be able to enroll in a course and into a schedule ticket.
 - Student shall be able to delist from the schedule ticket he is enrolled in.
@@ -17,7 +17,7 @@ This section specifies the functional requirements.
 - Teacher can send a message / e-mail to all students enrolled in the course / schedule ticket led by the teacher.
 - System creates statistical report on the number of students enrolled as well as teaching shares of teachers.
 
-## System requirements
+### System requirements
 
   - The enrollment system should be able to manipulate course, ticket and student data, their relations and communication from teachers to their students.
   - Concretely it should:
@@ -30,24 +30,22 @@ This section specifies the functional requirements.
 
   - Enrollment has rules it has to obey. There will be a validation functionality in place that will make sure only correct enrollments are commited.
 
-## Actors
+#### Actors
 
-### Student
+##### Student
 
-Student actor represents a university student who will use the student information system as a main method of interaction between him and the university. 
+Student actor represents a university student who will use the student information system as a main method of interaction between him and the university.
 
-### Teacher / Course garantor
+##### Teacher / Course garantor
 
-Teacher / Course garantor actor is a representation of an academic employee who is responsible for holding the lectures and/or practical tutorials.
+Teacher / Course garantor actor is a representation of an academic employee who is responsible for delivering the lectures and/or practical tutorials.
 
-### Student Affairs Department
+##### Student Affairs Department
 
 Student Affairs Departement actor represents a university / faculty department responsible for dealing with administration and control related tasks as well as helping students dealing with various types
 of problems they may encounter during their studies.
 
-## Use cases
-
-### Enrollments module use case diagram
+#### Use cases
 
 Usecase diagram describes the actors and the usecases which are relevant for the enrollment of a student in a course / schedule ticket for given semester.
 
@@ -95,13 +93,13 @@ sd --> statReport
 @enduml
 ```
 
-### Enroll in a schedule ticket
+##### Enroll in a schedule ticket
 
-#### _Starting situation (Initial assumption)_
+_Starting situation (Initial assumption)_
 
 - A user with access to the enrollment module for specific student &ndash; student or study department &ndash; has opened the enrollments form and has chosen a course and a specific course schedule ticket he / she wants to be enrolled in.
 
-#### _Normal_
+_Normal_
 
 - A user opens the enrollments form.
  
@@ -123,7 +121,7 @@ sd --> statReport
 
 - System notifies the user about successful completion.
 
-#### _What can go wrong_
+_What can go wrong_
 
 - System does not find any available schedule tickets for given course.
 
@@ -133,19 +131,19 @@ sd --> statReport
 
 - System is unable to find or update the structures holding information about the enrollment.
 
-#### _System state on completion_
+_System state on completion_
 
 - The enrollment request is valid and the process has finished successfully. The information about the enrollment of a student in a schedule ticket is now available in the system. Student is notified about the successful completion.
 
 - In case of enrollment validation failure or final system state validation failure, all changes in the system are rolled back &ndash; the state of the system returns to the last valid state. The student is notified about the failure.
 
-### Validate enrollment
+##### Validate enrollment
 
-#### _Starting situation (Initial assumption)_
+_Starting situation (Initial assumption)_
 
 - A user with access to the enrollment module for specific student has initiated the enrollment process for a specific course and schedule ticket. Furthermore, a request for enrollment has been filled and sent for execution.
 
-#### _Normal_
+_Normal_
 
 - System checks whether enrollments are currently allowed (period in the semester).
 
@@ -157,7 +155,7 @@ sd --> statReport
 
 - System checks current number of free tickets for chosen schedule ticket.
 
-#### _What can go wrong_
+_What can go wrong_
 
 - Enrollments are not allowed in current period. Enrollment process stops and the user is notified about the failure.
 
@@ -169,20 +167,20 @@ sd --> statReport
 
 - A student tried to enroll in a course, which he had already completed and the course does not allow repeated enrollments. The user is notified about the situation and enrollment process is not finished.
 
-#### _System state on completion_
+_System state on completion_
 
 - System has validated all requirements for enrollment of a student in a given course and
   no errors have been detected. The enrollment is considered valid and system update may proceed.
 
 - If any of the requirements for successful enrollment is not satisfied, enrollment validation fails. System is requested to stop the enrollment process and roll back all changes made to the system.
 
-### List course schedule tickets
+##### List course schedule tickets
 
-#### _Starting situation (Initial assumption)_
+_Starting situation (Initial assumption)_
 
 - A user has opened the enrollments form, has filled in information about the course for which the schedule tickets should be listed and has sent the request.
 
-#### _Normal_
+_Normal_
 
 - The user sends the request for listing schedule tickets for given course.
 
@@ -190,7 +188,7 @@ sd --> statReport
 
 - System collects found schedule tickets and provides them to the user.
 
-#### _What can go wrong_
+_What can go wrong_
 
 - The user is not permitted to list the schedule tickets for given course.
 
@@ -198,125 +196,107 @@ sd --> statReport
 
 - The system does not find any available schedule tickets for given course.
 
-#### _System state on completion_
+_System state on completion_
 
 - The system fetches all available schedule tickets for the desired course. The user is now able to list the schedule tickets.
 
 - In case of incorrectly filled request or any other failure, the system does not fulfill the request to list schedule tickets and notifies the user about failed operation.
 
-### List students enrolled in course
+##### List students enrolled in course
 
-#### _Starting situation (Initial assumption)_
+_Starting situation (Initial assumption)_
  - Garant/Teacher is on the course detail page of the course.
 
-#### _Normal_
+_Normal_
   - The browser automaticaly sends request for the list of the enrolled students.
   - The list is then shown in the browser. 
 
-#### _What can go wrong_
+_What can go wrong_
   - The teacher is not teaching the particular subject and therefore hasn't the acces rights. The system should inform the teacher about this.
 
+##### List students enrolled in schedule ticket
 
-### List students enrolled in schedule ticket
-
-#### _Starting situation (Initial assumption)_
+_Starting situation (Initial assumption)_
  - Garant/Teacher is on the course detail page of a ticket.
 
-#### _Normal_
+_Normal_
   - The browser automaticaly sends request for the list of the enrolled students.
 
   - The list is then shown in the browser.
 
-#### _What can go wrong_
+_What can go wrong_
   - The teacher is not teaching the particular subject and therefore hasn't the acces rights. The system should inform the teacher about this.
 
+##### Contact students
 
-### Contact students
-
-#### _Starting situation (Initial assumption)_
+_Starting situation (Initial assumption)_
   - The teacher has detail of course/ticket opened and can see its students.
 
-#### _Normal_
+_Normal_
   - The teacher clicks a button which redirects him to "Send mail to students" form.
   - Teacher will fill the subject, write desired message and click send.
 
-#### _What can go wrong_
+_What can go wrong_
   - One or more students has invalid email adress assigned.
 
+##### List students enrollments
 
-
-### List students enrollments
-
-#### _Starting situation (Initial assumption)_
-
+_Starting situation (Initial assumption)_
 - User is logged to the system and opens the enrolments screen.
 
-#### _Normal_
-
+_Normal_
 - User requests the list of student's enrolments
 - System finds all enrolments with the qiven student
 
-#### _What can go wrong_
-
+_What can go wrong_
 - User may not have sufficient permissions to see the list
 - Student whose list is requested may not exists
 - List of student's enrollments may be empty
 
-#### _System state on completion_
-
+_System state on completion_
 - System gather all student's enrollments and display the to the user
 - In case that the user has not sufficient permissions, request data for invalid student or the list is empty, the system reports error to the user
 
+##### Reallocate student's schedule ticket
 
-
-### Reallocate student's schedule ticket
-
-#### _Starting situation (Initial assumption)_
-
+_Starting situation (Initial assumption)_
 - User has opened a screen with information about student's enrollment to certain schedule ticket
 - User stated the intention to reallocete the ticket
 
-#### _Normal_
-
+_Normal_
 - User requests reallocation of the student to the selected schedule ticket
 - System finds the original enrollment
 - System removes student's original enrollment
 - System verifies the possibility to enroll the student to the selected schedule ticket
 - System enrolls the student to the selected schedule ticket
 
-#### _What can go wrong_
-
+_What can go wrong_
 - User may not have sufficient permissions to initiate the operation
 - The selected ticket may be the same as the original ticket
 - Student's enrollment that the user want to reallocate may be already invalid
 - It may not be allowed to enroll the student to the selected ticket
 
-#### _System state on completion_
-
+_System state on completion_
 - Student's enrollment is reallocated to the different ticket and the user is informed that the operation ended successfully
 - In case that the user has not sufficient permissions or the selected ticket is the same as the original ticket, no changes are made and the system reports the error to the user
 - In case that student's enrollment that should be modified doesn't exists anymore or the enrollment to the new ticket is not possible, the original state is persisted and the system reports the error to the user
 
-### Create statistical report
+##### Create statistical report
 
-#### _Starting situation (Initial assumption)_
-
+_Starting situation (Initial assumption)_
 - Member of Student Affairs Department is logged to enrollments module and want to export specific report
 
-#### _Normal_
-
+_Normal_
 - User fills and sends the request to generate the statistical report
 - System fetches the required data
 - System calculates the requested values
 - System generates the report in the requested format
 
-#### _What can go wrong_
 
+_What can go wrong_
 - User sends request which is not filled correctly
 - Requested report is not available for the given period
 
-#### _System state on completion_
-
+_System state on completion_
 - System provides the generated report to the user
 - In case of incorrectly filled request or when the report is not available for the given period, the system does not generate the report and inform the user about the error
-
