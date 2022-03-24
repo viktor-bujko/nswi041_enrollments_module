@@ -19,7 +19,16 @@ This section specifies the functional requirements.
 
 ## System requirements
 
-[*Document here your system requirements as use case diagrams.*]
+  - The enrollment system should be able to manipulate course, ticket and student data, their relations and communication from teachers to their students.
+  - Concretely it should:
+    - Allow students enrollment (process of signing a student to a particular ticket)
+    - Allow teachers to move their students between tickets.
+    - Show lists of students per ticket or course to the course teachers.
+    - Send bulk emails from teachers (to students list as per previous line)
+    - Create statistical report
+    - List all tickets for given student
+
+  - Enrollment has rules it has to obey. There will be a validation functionality in place that will make sure only correct enrollments are commited.
 
 ## Actors
 
@@ -194,3 +203,78 @@ sd --> statReport
 - The system fetches all available schedule tickets for the desired course. The user is now able to list the schedule tickets.
 
 - In case of incorrectly filled request or any other failure, the system does not fulfill the request to list schedule tickets and notifies the user about failed operation.
+
+### List students enrolled in course
+
+#### _Starting situation (Initial assumption)_
+ - Garant/Teacher is on the course detail page of the course.
+
+#### _Normal_
+  - The browser automaticaly sends request for the list of the enrolled students.
+  - The list is then shown in the browser. 
+
+#### _What can go wrong_
+  - The teacher is not teaching the particular subject and therefore hasn't the acces rights. The system should inform the teacher about this.
+
+
+### List students enrolled in schedule ticket
+
+#### _Starting situation (Initial assumption)_
+ - Garant/Teacher is on the course detail page of a ticket.
+
+#### _Normal_
+  - The browser automaticaly sends request for the list of the enrolled students.
+
+  - The list is then shown in the browser.
+
+#### _What can go wrong_
+  - The teacher is not teaching the particular subject and therefore hasn't the acces rights. The system should inform the teacher about this.
+
+
+### Contact students
+
+#### _Starting situation (Initial assumption)_
+  - The teacher has detail of course/ticket opened and can see its students.
+
+#### _Normal_
+  - The teacher clicks a button which redirects him to "Send mail to students" form.
+  - Teacher will fill the subject, write desired message and click send.
+
+#### _What can go wrong_
+  - One or more students has invalid email adress assigned.
+
+
+
+### List students enrollments
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+### Reallocate student's schedule ticket
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
+
+
+
+### Create statistical report
+
+#### _Starting situation (Initial assumption)_
+
+#### _Normal_
+
+#### _What can go wrong_
+
+#### _System state on completion_
