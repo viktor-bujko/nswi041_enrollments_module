@@ -1,10 +1,8 @@
-# Student information system - Enrolments module
+# Student information system - [*Enrollments module*]
 
-## Description
+## Module description
 
-> Modul zápisy slouží k zapisování studentů do předmětů v semestrech a k zápisu na konkrétní rozvrhové lístky předmětu v rozvrhu na daný semestr. Zápis do lístku s naplněnou kapacitou je možný do čekací listiny předmětu. Student se nemůže zapsat na předmět, který má jako prerekvizitu předmět, který ještě úspěšně neabsolvoval. Dále se nemůže zapsat na předmět, který již absolvoval, pokud nemá předmět explicitně povoleny opakované zápisy. Garanti předmětu a vyučující přiřazení k jednotlivým rozvrhovým lístkům mohou vidět seznam studentů zapsaných do předmětu i na jednotlivé rozvrhové lístky a mohou jim rozesílat zprávy. Dále mohou studenty přesouvat mezi rozvrhovými lístky. Modul umožňuje vytvářet statistické reporty o počtech studentů zapsaných do předmětů a do rozvrhových lístků v jednotlivých semestrech a o podílech učitelů na výuce.
-
----
+> The module Enrollments enables to manage enrollments of students in courses in semesters and enrollments in specific schedule tickets in a given semester according to the planned schedule. Enrollment in a ticket with a filled capacity is possible but only in the waiting list of the subject. A student cannot enroll in a course that has a prerequisite course that he / she has not yet completed successfully. Furthermore, he / she cannot enroll in a course that he / she has already completed, unless the course is explicitly specified with to repeated enrollments allowed. Course guarantors and teachers assigned to individual timetables can see the list of students enrolled in the course and individual timetables and can send them email messages. Furthermore, they can reallocate students between schedule sheets defined in the schedule for the given semester. The module enables to create statistical reports on the number of students enrolled in subjects and timetables in individual semesters and on the teaching shares of teachers.
 
 ## Functional Requirements
 
@@ -40,10 +38,16 @@ of problems they may encounter during their studies.
 
 ## Use cases
 
+### Enrollments module use case diagram
+
+Usecase diagram describes the actors and the usecases which are relevant for the enrollment of a student in a course / schedule ticket for given semester.
+
 ```plantuml
 @startuml
+
 skinparam actorStyle awesome
 skinparam monochrome true
+
 actor Student as s
 actor Teacher as t
 actor "Student Affairs Department" as sd
@@ -64,16 +68,20 @@ listCourseEnrolled  .|> listTickets: <<include>>
 contact .|> listTicketEnrolled: <<include>>
 validate .|> enroll: << extend >>
 listCourseEnrolled ..|> listTicketEnrolled: <<include>>
+
 t ..|> sd: <<extend>>
 s ..|> sd: <<extend>>
+
 s -> enroll
 s -> listEnrollments
 s -> listTickets
+
 t -> listTickets
 t -> listCourseEnrolled
 t -> reallocateTicket
 t -> contact
 t -> listTicketEnrolled
+
 sd --> statReport
 @enduml
 ```
@@ -124,7 +132,7 @@ sd --> statReport
 
 ### Validate enrollment
 
-_Starting situation (Initial assumption)_
+#### _Starting situation (Initial assumption)_
 
 - A user with access to the enrollment module for specific student has initiated the enrollment process for a specific course and schedule ticket. Furthermore, a request for enrollment has been filled and sent for execution.
 
@@ -186,74 +194,3 @@ _Starting situation (Initial assumption)_
 - The system fetches all available schedule tickets for the desired course. The user is now able to list the schedule tickets.
 
 - In case of incorrectly filled request or any other failure, the system does not fulfill the request to list schedule tickets and notifies the user about failed operation.
-
-### List students enrolled in course
-
-#### _Starting situation (Initial assumption)_
-
-#### _Normal_
-
-#### _What can go wrong_
-
-#### _System state on completion_
-
-
-
-### List students enrolled in schedule ticket
-
-#### _Starting situation (Initial assumption)_
-
-#### _Normal_
-
-#### _What can go wrong_
-
-#### _System state on completion_
-
-
-
-### Contact students
-
-#### _Starting situation (Initial assumption)_
-
-#### _Normal_
-
-#### _What can go wrong_
-
-#### _System state on completion_
-
-
-
-
-### List students enrollments
-
-#### _Starting situation (Initial assumption)_
-
-#### _Normal_
-
-#### _What can go wrong_
-
-#### _System state on completion_
-
-
-
-### Reallocate student's schedule ticket
-
-#### _Starting situation (Initial assumption)_
-
-#### _Normal_
-
-#### _What can go wrong_
-
-#### _System state on completion_
-
-
-
-### Create statistical report
-
-#### _Starting situation (Initial assumption)_
-
-#### _Normal_
-
-#### _What can go wrong_
-
-#### _System state on completion_
