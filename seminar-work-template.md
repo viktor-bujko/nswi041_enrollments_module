@@ -21,8 +21,6 @@ This section specifies the functional requirements.
 
 #### Actors
 
-[*Document here all actors from the use case diagrams. Make a subsection for each actor and their short description in each subsection.*]
-
 ##### Student
 
 Student actor represents a university student who will use the student information system as a main method of interaction between him and the university. 
@@ -55,40 +53,123 @@ package "Enrollments module" {
   usecase "Enroll in a schedule ticket" as enroll
   usecase "List students enrollments" as listEnrollments
   usecase "List course schedule tickets" as listTickets
-  usecase "List students enrolled to course" as listCourseEnrolled
+  usecase "List students enrolled in course" as listCourseEnrolled
   usecase "Reallocate student's schedule ticket" as reallocateTicket
-  usecase "List students enrolled to schedule ticket" as listTicketEnrolled
+  usecase "List students enrolled in schedule ticket" as listTicketEnrolled
   usecase "Contact students" as contact
   usecase "Validate enrollment" as validate
 }
 
-validate .|> enroll: << extend >>
-enroll ..|> listTickets: <<include>>
 reallocateTicket ..|> enroll: <<include>>
-listCourseEnrolled  ..|> listTickets: <<include>>
-contact ..|> listTicketEnrolled: <<include>>
-listCourseEnrolled .|> listTicketEnrolled: <<include>>
+enroll ..|> listTickets: <<include>>
+listCourseEnrolled  .|> listTickets: <<include>>
+contact .|> listTicketEnrolled: <<include>>
+validate .|> enroll: << extend >>
+listCourseEnrolled ..|> listTicketEnrolled: <<include>>
 
-sd .|> t: <<include>>
+t ..|> sd: <<extend>>
+s ..|> sd: <<extend>>
 
-s --> enroll
-s --> listEnrollments
-s --> listTickets
+s -> enroll
+s -> listEnrollments
+s -> listTickets
 
+t -> listTickets
+t -> listCourseEnrolled
+t -> reallocateTicket
+t -> contact
+t -> listTicketEnrolled
 
-t --> reallocateTicket
-t --> contact
-t --> listCourseEnrolled
-t --> listTicketEnrolled
-t --> listTickets
+sd --> statReport
 
 @enduml
 ```
 
-[*Describe the diagram in a short paragraph. Describe each use case from the diaram in the detail from the lecture in a separate subsection.*]
+Usecase diagram describes the actors and the usecases which are relevant for the enrollment of a student in a course / schedule ticket for given semester.
+
+[*Describe the diagram in a short paragraph. Describe each use case from the diagram in the detail from the lecture in a separate subsection.*]
 
 ###### Enroll in a schedule ticket
 
+_Starting situation (Initial assumption)_
+
+- A user with access to the enrollment module for specific student &ndash; student or study department &ndash; has opened the enrollments form and has chosen a course and a specific course schedule ticket he / she wants to be enrolled in.
+
+_Normal_
+
+- A user opens the enrollments form.
+
+- The user fills information about the course and schedule ticket for enrollment.
+
+- The user sends an enrollment request.
+
+- System performs the validation of the enrollment request.
+
+- System updates chosen schedule ticket (or schedule ticket waiting waiting list if no free tickets are available).
+
+- System updates the structures where information about student's enrolled courses and schedule tickets are stored.
+
+- System checks that changes have been saved successfully.
+
+- System notifies the user about successful completion.
+
+_What can go wrong_
+
+- The user sends enrollment request which is not filled correctly.
+
+- Enrollment validation process fails.
+
+- System is unable to find or update the structures holding information about the enrollment.
+
+_System state on completion_
+
+- The enrollment request is valid and the process has finished successfully. The information about the enrollment of a student in a schedule ticket is now available in the system. Student is notified about the successful completion.
+
+- In case of enrollment validation failure or final system state validation failure, all changes in the system are rolled back &ndash; the state of the system returns to the last valid state. The student is notified about the failure. 
+
 ###### Validate enrollment
 
+_Starting situation (Initial assumption)_
+
+- A user with access to the enrollment module for specific student has initiated the enrollment process for a specific course and schedule ticket. Furthermore, a request for enrollment has been filled and sent for execution.
+
+_Normal_
+
+- System checks whether enrollments are currently allowed (period in the semester).
+
+- System checks whether all required data are filled in.
+
+- System checks the existence of a student and his/her current study status before inspecting successful completion of prerequisities (if any).
+
+- System reviews that the student has not already completed the course or that the course allows repeated enrollments.
+
+- System checks current number of free tickets for chosen schedule ticket.
+
+_What can go wrong_
+
+- Enrollments are not allowed in current period. Enrollment process stops and the user is notified about the failure.
+
+- Course in which a user tries to enroll does not exist. In such a case, the student is notified about the fact, and enrollment process fails.
+
+- Course in which a student tries to enroll is not being taught this semester. In such a case, the user is notified about the fact, and enrollment process fails.
+
+- A student tried to enroll in a course, but prerequisities are not satisfied &ndash; at least one prerequisity has _not_ been successfully completed. The user recieves a notification / message about failed enrollment.
+
+- A student tried to enroll in a course, which he had already completed and the course does not allow repeated enrollments. The user is notified about the situation and enrollment process is not finished.
+
+_System state on completion_
+
+- System has validated all requirements for enrollment of a student in a given course and
+  no errors have been detected. The enrollment is considered valid and system update may proceed.
+
+- If any of the requirements for successful enrollment is not satisfied, enrollment validation fails. System is requested to stop the enrollment process and roll back all changes made to the system.
+
 ###### List course schedule tickets
+
+_Starting situation (Initial assumption)_
+
+_Normal_
+
+_What can go wrong_
+
+_System state on completion_
