@@ -39,7 +39,7 @@ package Professional {
   actor "Food Critic" as fc
 }
 package Restaurant {
-  usecase "Eat Food" as UC1
+  usecase "s" as UC1
   usecase "Pay for Food" as UC2
   usecase "Drink" as UC3
   usecase "Review" as UC4
