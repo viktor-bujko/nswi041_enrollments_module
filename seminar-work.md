@@ -237,7 +237,7 @@ _Normal_
   - Teacher will fill the subject, write desired message and click send.
 
 _What can go wrong_
-  - One or more students has invalid email adress assigned.
+  - One or more students has invalid email adress assigned. User will be notified about this.
 
 ##### List students enrollments
 
