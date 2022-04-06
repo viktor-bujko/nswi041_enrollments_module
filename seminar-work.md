@@ -137,6 +137,30 @@ _System state on completion_
 
 - In case of enrollment validation failure or final system state validation failure, all changes in the system are rolled back &ndash; the state of the system returns to the last valid state. The student is notified about the failure.
 
+```plantuml
+@startuml
+|User|
+start
+repeat :Open enrollment form;
+:Submit course search;
+|System|
+:Find tickets;
+|User|
+:Select ticket;
+:Submit enrollment;
+|System|
+:Validate enrollment;
+backward :Notify user;
+repeat while (Valid?) is (No) not (Yes)
+:Update schedule ticket;
+:Store student's enrollment;
+:Notify student;
+:Redirect to list of student's enrollments;
+|User|
+stop
+@enduml
+```
+
 ##### Validate enrollment
 
 _Starting situation (Initial assumption)_
