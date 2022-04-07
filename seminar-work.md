@@ -355,3 +355,53 @@ _What can go wrong_
 _System state on completion_
 - System provides the generated report to the user
 - In case of incorrectly filled request or when the report is not available for the given period, the system does not generate the report and inform the user about the error
+
+## Information model
+
+```plantuml
+@startuml
+class Person {
+  Name
+  Surname
+  Address
+  Email
+}
+
+class Student {
+  Number
+  Year of studies
+}
+
+class Teacher {
+  Catedry
+}
+
+class Ticket {
+  Filled capacity
+  Maximum capacity
+}
+
+class Course {
+  Name
+  Description
+}
+
+class Enrollment {
+  Date
+  Status
+}
+
+Student --|> Person
+Teacher --|> Person
+Student "0..n" --> "0..n" Ticket
+Ticket "0..n" --> "1..1" Course : of
+Ticket "0..n" --> "1..1" Teacher : "teached by"
+Course "0..n" --> "0..n" Course : "prerequisites"
+(Student, Ticket) .. Enrollment
+@enduml
+```
+
+[Document each class with a short description in a separate subsection]
+### [Class name]
+
+[Class description]
