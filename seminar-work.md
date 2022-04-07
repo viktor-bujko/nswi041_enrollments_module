@@ -360,7 +360,9 @@ _System state on completion_
 
 ```plantuml
 @startuml
+skinparam monochrome true
 class Person {
+  Personal ID
   Name
   Surname
   Address
@@ -368,22 +370,36 @@ class Person {
 }
 
 class Student {
-  Number
+  Student ID
+  Study programme
+  State
+  Type of studies
   Year of studies
 }
 
 class Teacher {
-  Catedry
+  TeacherID
+  Department
 }
 
 class Ticket {
-  Filled capacity
+  Lecture type
+  Semester
+  Date
+  Time
+  Language
+  Current capacity
   Maximum capacity
 }
 
 class Course {
   Name
+  Guarantor
   Description
+  Semester
+  Credits
+  Repeated enrollments allowed
+  Examination type
 }
 
 class Enrollment {
@@ -391,17 +407,30 @@ class Enrollment {
   Status
 }
 
-Student --|> Person
-Teacher --|> Person
-Student "0..n" --> "0..n" Ticket
-Ticket "0..n" --> "1..1" Course : of
-Ticket "0..n" --> "1..1" Teacher : "teached by"
-Course "0..n" --> "0..n" Course : "prerequisites"
+Student -|> Person
+Teacher -|> Person
+Student "0..n" - "0..n" Ticket
+Ticket "0..n" -- "1..1" Course : of
+Ticket "0..n" - "1..1" Teacher : "taught by"
+Course "0..n" - "0..n" Course : "prerequisites"
 (Student, Ticket) .. Enrollment
 @enduml
 ```
 
-[Document each class with a short description in a separate subsection]
-### [Class name]
+### Person
+[Class description]
 
+#### Student
+[Class description]
+
+#### Teacher
+[Class description]
+
+### Ticket
+[Class description]
+
+### Course
+[Class description]
+
+### Enrollment
 [Class description]
