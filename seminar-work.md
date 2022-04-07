@@ -262,6 +262,38 @@ _Normal_
 
 _What can go wrong_
   - One or more students has invalid email adress assigned. User will be notified about this.
+  - The email must have subject filled in. Validation will be shown when user leaves it empty.
+
+```plantuml
+@startuml
+skinparam actorStyle awesome
+
+|User|
+start
+:Visit a page with a list of students (of ticket or subject);
+|System|
+:Fetch students list;
+|User|
+:Click the "Notify students" button;
+repeat :Fill a form with subject and the message itself;
+:Click the "send" button;
+
+|System|
+backward :Show validation message;
+repeat while (Subject is empty?) is (Yes) not (No)
+:Get list of emails from all students;
+:Sent emails;
+:Wait for all success/failure feedbacks;
+
+if (Have all emails been successfully sent?) then (no)
+    #pink:Notify user about unsent emails;
+else (yes)
+    #palegreen:Notify user about success;
+endif
+|User|
+stop
+@enduml
+```
 
 ##### List students enrollments
 
@@ -384,7 +416,6 @@ class Teacher {
 
 class Ticket {
   Lecture type
-  Semester
   Date
   Time
   Language
@@ -418,19 +449,44 @@ Course "0..n" - "0..n" Course : "prerequisites"
 ```
 
 ### Person
-[Class description]
+- Person is any human being interacting with the university system.
+- A person is defined by their full name and address.
+- Receives notifications through an e-mail address.
+- Can be a student, teacher, both or neither.
+- Can also have other roles (such as Guarantor) but that is not part of this module.
 
 #### Student
-[Class description]
+- Is a Person who attends the university in order to study.
+- Studies at a perticular programme and type of studies.
+- Can be local or foreign - we keep each students home state.
+- Can enroll (or be enrolled) in Tickets.
 
 #### Teacher
-[Class description]
-
-### Ticket
-[Class description]
+- Teacher is a Person who teaches Students.
+- Can enroll Students in Tickets and send them bulk notifications.
+- Belongs at one department.
+- Can be listed as a teacher for a particular ticket.
 
 ### Course
-[Class description]
+- Course is a subject taught by Teachers, attended by Students.
+- It is not taught directly, instead it is divided into Tickets.
+- Each Course has a name, description, guarantor and examination type.
+- If the Course is succesfully passed by a student, they will earn a set amount of credits.
+- Some courses can be enrolled in repeatedly, others cannot.
+- Can be a prerequisity or have prerequisities.
+  - Course with prerequisity courses can only be Enrolled in by a Student if they passed them all.
+
+### Ticket
+- Ticket is what Students actually attend.
+- Can be either a lecture or practicals. (Referred to as lecture type)
+- It belongs to exactly one Course.
+- Takes place at a given date and time.
+- Taught in a given language by one Teacher.
+- Has a maximum capacity.
+- Has a number of Students enrolled.
+- This number can be higher than its Maximum capacity but the extra students' enrollments will have status of Waiting list.
 
 ### Enrollment
-[Class description]
+- Represents a Students enrollment in a Ticket.
+- Has a date of when it has been committed.
+- Has a status (Enrolled, Waiting list, Passed, Failed...)
