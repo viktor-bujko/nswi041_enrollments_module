@@ -394,7 +394,6 @@ _System state on completion_
 @startuml
 skinparam monochrome true
 class Person {
-  Personal ID
   Name
   Surname
   Address
@@ -410,7 +409,7 @@ class Student {
 }
 
 class Teacher {
-  TeacherID
+  Teacher ID
   Department
 }
 
@@ -419,13 +418,13 @@ class Ticket {
   Date
   Time
   Language
+  Semester
   Current capacity
   Maximum capacity
 }
 
 class Course {
   Name
-  Guarantor
   Description
   Semester
   Credits
@@ -436,14 +435,16 @@ class Course {
 class Enrollment {
   Date
   Status
+  Result
 }
 
 Student -|> Person
 Teacher -|> Person
-Student "0..n" - "0..n" Ticket
-Ticket "0..n" -- "1..1" Course : of
-Ticket "0..n" - "1..1" Teacher : "taught by"
-Course "0..n" - "0..n" Course : "prerequisites"
+Student "0..n" -> "0..n" Ticket : enrolled in
+Ticket "0..n" --> "1..1" Course : of
+Ticket "0..n" -> "1..1" Teacher : "taught by"
+Course "0..n" -> "0..n" Course : "prerequisites"
+Teacher "0..n" <- "1..1" Course : "guaranteed by"
 (Student, Ticket) .. Enrollment
 @enduml
 ```
@@ -452,8 +453,6 @@ Course "0..n" - "0..n" Course : "prerequisites"
 - Person is any human being interacting with the university system.
 - A person is defined by their full name and address.
 - Receives notifications through an e-mail address.
-- Can be a student, teacher, both or neither.
-- Can also have other roles (such as Guarantor) but that is not part of this module.
 
 #### Student
 - Is a Person who attends the university in order to study.
@@ -464,7 +463,7 @@ Course "0..n" - "0..n" Course : "prerequisites"
 #### Teacher
 - Teacher is a Person who teaches Students.
 - Can enroll Students in Tickets and send them bulk notifications.
-- Belongs at one department.
+- Belongs to one department.
 - Can be listed as a teacher for a particular ticket.
 
 ### Course
@@ -472,6 +471,7 @@ Course "0..n" - "0..n" Course : "prerequisites"
 - It is not taught directly, instead it is divided into Tickets.
 - Each Course has a name, description, guarantor and examination type.
 - If the Course is succesfully passed by a student, they will earn a set amount of credits.
+- Can be held in winter, summer or both semesters
 - Some courses can be enrolled in repeatedly, others cannot.
 - Can be a prerequisity or have prerequisities.
   - Course with prerequisity courses can only be Enrolled in by a Student if they passed them all.
@@ -480,7 +480,7 @@ Course "0..n" - "0..n" Course : "prerequisites"
 - Ticket is what Students actually attend.
 - Can be either a lecture or practicals. (Referred to as lecture type)
 - It belongs to exactly one Course.
-- Takes place at a given date and time.
+- Takes place at a given day of week and time during a given semester.
 - Taught in a given language by one Teacher.
 - Has a maximum capacity.
 - Has a number of Students enrolled.
@@ -490,3 +490,5 @@ Course "0..n" - "0..n" Course : "prerequisites"
 - Represents a Students enrollment in a Ticket.
 - Has a date of when it has been committed.
 - Has a status (Enrolled, Waiting list, Passed, Failed...)
+- Has a result in case that the status is passed or failed.
+  - Can be a mark or whether the student received the credit.
