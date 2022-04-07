@@ -285,7 +285,7 @@ _System state on completion_
 
 _Starting situation (Initial assumption)_
 - User has opened a screen with information about student's enrollment to certain schedule ticket
-- User stated the intention to reallocete the ticket
+- User stated the intention to reallocate the ticket
 
 _Normal_
 - User requests reallocation of the student to the selected schedule ticket
@@ -304,6 +304,37 @@ _System state on completion_
 - Student's enrollment is reallocated to the different ticket and the user is informed that the operation ended successfully
 - In case that the user has not sufficient permissions or the selected ticket is the same as the original ticket, no changes are made and the system reports the error to the user
 - In case that student's enrollment that should be modified doesn't exists anymore or the enrollment to the new ticket is not possible, the original state is persisted and the system reports the error to the user
+
+```plantuml
+@startuml
+skinparam actorStyle awesome
+
+|User|
+start
+:Specify new schedule ticket;
+:Submit schedule ticket reallocation;
+|System|
+:New schedule ticket object]
+fork
+:Find old schedule ticket;
+:Remove student from old schedule ticket;
+fork again
+:Perform the enrollment to the new schedule ticket;
+end fork
+:Validate schedule tickets manipulation;
+if (Valid manipulations?) then (no)
+  #pink:Notify user about failure;
+  |User|
+else (yes)
+|System|
+:Update schedule tickets;
+:Save student's new ticket enrollment;
+#palegreen:Notify user about reallocation;
+|User|
+endif
+stop
+@enduml
+```
 
 ##### Create statistical report
 
