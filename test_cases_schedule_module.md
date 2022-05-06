@@ -99,6 +99,8 @@
 
 - [__Assertion__] Old and new notification system configurations have the same content (but the objects are different).
 
+- [__Assertion__] Both notification system configurations are the same (the old and the new one) &ndash; notification sending rules have not changed.
+
 ---
 
 ## Test suite 2 &ndash; Viewing tests
@@ -230,5 +232,3 @@
 - [__Assertion__] The schedule is not shown.
 
 ---
-
-- [__Assertion__] Both notification system configurations are the same (the old and the new one) &ndash; notification sending rules have not changed.
