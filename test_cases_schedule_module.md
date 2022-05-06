@@ -1,8 +1,8 @@
 # Test cases
 
-## Test &ndash; Notification setup
+## Test suite 1 &ndash; Notification setup
 
-### Test 1 &ndash; Basic case
+### **Test 1 &ndash; Basic case**
 
 #### Setup
 
@@ -42,7 +42,7 @@
 
 - [__Assertion__] Logged user has recieved the notification about the change in the schedule.
 
-### Test 2 &ndash; E-mail address with incorrect format
+### **Test 2 &ndash; E-mail address with incorrect format**
 
 #### Setup
 
@@ -62,7 +62,7 @@
 
 - [__Assertion__] The system correctly recognizes incorrect e-mail address format and fails to update notification settings.
 
-### Test 3 &ndash; Unsaved notification settings configuration
+### **Test 3 &ndash; Unsaved notification settings configuration**
 
 #### Setup
 
@@ -89,3 +89,136 @@
 #### Assert
 
 - [__Assertion__] Old and new notification system configurations have the same content (but the objects are different).
+
+---
+
+## Test suite 2 &ndash; Viewing tests
+
+### **Test case 1 &ndash; View "My schedule" as logged in student**
+
+#### Setup
+
+- Log in as a student
+  
+- Mock schedule for this student
+
+#### Steps
+
+- Go to the schedule module page
+  
+- Click on the "My schedule" button.
+
+- [__Assertion__] The schedule is shown.
+  
+- [__Assertion__] The schedule is in acordance with the mocked schedule data
+
+### **Test 2 &ndash; View classroom schedule**
+
+#### Setup
+  
+- Mock a classrom
+
+- Mock a variable schedule for this classroom
+
+#### Steps
+
+- Go to the schedule module page
+  
+- Click on the "Classroom schedules" button.
+
+- [__Assertion__] The mocked classroom is available in the list of classrooms
+
+- Select the classrom and click "Show schedule" button
+
+- [__Assertion__] The schedule is shown.
+  
+- [__Assertion__] The schedule is in acordance with the mocked schedule data
+
+### **Test 3 &ndash; View subject schedule**
+
+#### Setup
+  
+- Mock a subject with a schedule
+
+- Mock a variable schedule for this subject
+
+#### Steps
+
+- Go to the schedule module page
+  
+- Click on the "Subject schedules" button.
+
+- [__Assertion__] The mocked subject is available in the list
+
+- Select the subject and click "Show schedule" button
+
+- [__Assertion__] The schedule is shown.
+  
+- [__Assertion__] The schedule is in acordance with the mocked schedule data
+
+### **Test 3 &ndash; View subject schedule**
+
+#### Setup
+  
+- Mock a subject with a schedule
+
+- Mock a variable schedule for this subject
+
+#### Steps
+
+- Go to the schedule module page
+  
+- Click on the "Subject schedules" button.
+
+- [__Assertion__] The mocked subject is available in the list
+
+- Select the subject and click "Show schedule" button
+
+- [__Assertion__] The schedule is shown.
+  
+- [__Assertion__] The schedule is in acordance with the mocked schedule data
+
+### **Test 4 &ndash; View unscheduled subject schedule**
+
+#### Setup
+  
+- Mock a subject with a schedule
+
+#### Steps
+
+- Go to the schedule module page
+  
+- Click on the "Subject schedules" button.
+
+- [__Assertion__] The mocked subject is available in the list
+
+- Select the subject and click "Show schedule" button
+
+- [__Assertion__] The info banner with text "This subject doesn't have a schedule yet." is visible.
+
+- [__Assertion__] The schedule is not shown.
+
+### **Test 5 &ndash; Fail to view private classroom schedule**
+
+#### Setup
+  
+- Mock a private classroom with a schedule
+
+- Mock a user without access right to view this schedule
+
+#### Steps
+
+- Go to the schedule module page
+  
+- Click on the "Classroom schedules" button.
+
+- [__Assertion__] The mocked classroom is available in the list
+
+- Select the subject and click "Show schedule" button
+
+- [__Assertion__] The info banner with text "This classroom is private." is visible.
+
+- [__Assertion__] The schedule is not shown.
+
+---
+
