@@ -212,3 +212,85 @@
 ---
 
 ## Test suite 3 &ndash; Creating a schedule
+
+### **Test 1 &ndash; User correctly creates schedule for the faculty**
+
+#### Setup
+
+- Create subject entities with empty schedules
+
+#### Steps
+
+- Go to schedule module page.
+- Click on "Create schedule" button.
+- User assign subject and type of the lesson to teacher, room, date and time until all lessons of all subjects are scheduled.
+
+#### Assert
+- [__Assertion__] Assigned lesson appears in the schedule of the selected teacher and selected room.
+
+### **Test 2 &ndash; User does not have permissions to create the schedule**
+
+#### Setup
+
+- Log in as user without permissions to create schedules.
+
+#### Steps
+
+- Go to schedule module page.
+
+#### Assert
+
+- [__Assertion__] There is no "Create schedule button".
+- [__Assertion__] If the user attemps to emulate click to the invisible "Create schedule button" button, error message is shown.
+
+### **Test 3 &ndash; Two subjects in the same room at the same time**
+
+#### Setup
+
+- Create two subject entities - `Subject 1` with a single lesson in the `Room 1` on `Monday` from `10:40` to `12:10` in its schedule and `Subject 2` with an empty schedule
+
+#### Steps
+
+- Go to schedule module page.
+- Click on "Create schedule" button.
+- User attemps to create lesson of `Subject 2` in the `Room 1` on `Monday` from `9:55` to `11:30`.
+
+#### Assert
+
+- [__Assertion__] Error message is shown because the room is already occupied at the given time.
+
+
+### **Test 4 &ndash; Fail final schedule validation**
+
+#### Setup
+
+- Create schedule of several subjects for several teachers with one of following errors:
+  -  subject does not have one of its parts scheduled
+  -  teacher has more than allowed number of lessons, 
+  -  capacity of lesson is greater than capacity of its room
+
+#### Steps
+
+- Go to schedule module page.
+- Click on "Create schedule" button.
+- Click on "Validate schedule" button.
+
+#### Assert
+
+- [__Assertion__] An error message with description of the error is shown.
+
+### **Test 5 &ndash; Teacher does not have a lunch break**
+
+#### Setup
+
+- System is configured to check for lunch break between `11:30` and `14:00` of at least 20 minutes straight.
+- Create mock subject and teacher.
+
+#### Steps 
+
+- Create lesson for the teacher on `Monday` from `10:40` to `12:10`.
+- Create another lesson for the on `Monday` from `12:20` to `13:50`.
+
+#### Assert
+
+- [__Assertion__] A message informing of the missing lunch break on `Monday` is shown.
